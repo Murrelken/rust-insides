@@ -9,10 +9,6 @@ impl<T: Copy> AnotherStruct<T> {
     pub fn new(item: T) -> AnotherStruct<T> {
         AnotherStruct { item }
     }
-
-    // fn get_item(&self) -> T {
-    //     self.item
-    // }
 }
 
 impl<T: Copy> StructWithItem<T> for AnotherStruct<T> {

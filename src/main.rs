@@ -1,14 +1,19 @@
+mod guessing_game;
+mod fibonacci_calculator;
+mod degrees_convertor;
+mod abstraction_test_site;
+
 use std::io;
 use guessing_game::guessing_game;
 use fibonacci_calculator::ith_fibonacci;
 use degrees_convertor::celsius_to_fahrenheit;
 use degrees_convertor::fahrenheit_to_celsius;
 
-mod guessing_game;
-mod fibonacci_calculator;
-mod degrees_convertor;
-
 fn main() {
+    run_command_selection();
+}
+
+fn run_command_selection() {
     const FUNCTIONS: [&str; 4] = [
         "guessing_game()",
         "ith_fibonacci()",
@@ -28,16 +33,21 @@ fn main() {
         .read_line(&mut command)
         .expect("Failed to read line");
 
-    let command_as_string = command
-        .as_str()
-        .trim();
+    command = String::from("0");
 
-    match command_as_string {
-        "1" => {
+    let command: u32 = match command
+        .trim()
+        .parse() {
+        Ok(num) => num,
+        Err(_) => { return; }
+    };
+
+    match command {
+        1 => {
             println!("{ }", commands[0]);
             guessing_game();
         }
-        "2" => 'fibonacci_match: {
+        2 => 'fibonacci_match: {
             println!("Type in your i to get ith Fibonacci number.");
 
             let mut i = String::new();
@@ -56,7 +66,7 @@ fn main() {
             let ith_fib = ith_fibonacci(i);
             println!("{ith_fib}");
         }
-        "3" => 'celsius_to_fahrenheit: {
+        3 => 'celsius_to_fahrenheit: {
             println!("Type in your celsius value.");
 
             let mut i = String::new();
@@ -78,7 +88,7 @@ fn main() {
             let fahrenheit_val = celsius_to_fahrenheit(i);
             println!("{fahrenheit_val}");
         }
-        "4" => 'fahrenheit_to_celsius: {
+        4 => 'fahrenheit_to_celsius: {
             println!("Type in your fahrenheit value.");
 
             let mut i = String::new();
