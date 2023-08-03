@@ -1,29 +1,21 @@
-mod command_handler_lib;
+mod console_command;
+mod console_input_output_handler;
 
 use std::io;
-use command_handler_lib:: {command_handler::run_command_selection, command_enum::CommandEnum};
-use std::convert::TryFrom;
+use std::error::Error;
+use rust_web_server::run_command_selection;
+use console_command::ConsoleCommand;
+use console_input_output_handler::ConsoleInputOutputHandler;
 
-fn main() {
+fn main() -> Result<(), Box<dyn Error>> {
     let mut command = String::new();
-    io::stdin()
-        .read_line(&mut command)
-        .expect("Failed to read line");
+    io::stdin().read_line(&mut command)?;
 
-    command = String::from("0");
+    let command = ConsoleCommand { value: command.trim().parse()? };
 
-    let command: i32 = match command
-        .trim()
-        .parse() {
-        Ok(num) => num,
-        Err(_) => { return; }
-    };
+    run_command_selection::<ConsoleCommand, ConsoleInputOutputHandler>(command)?;
 
-    let command = match CommandEnum::try_from(command) {
-        Ok(r) => r,
-        Err(e) => panic!("{e}")
-    };
-
-    run_command_selection(command);
+    Ok(())
 }
+
 
