@@ -15,7 +15,7 @@ pub fn run<IO>(command: CommandEnum) -> Result<(), String> where
     match command {
         CommandEnum::GuessingGame => {
             IO::print(&commands[0]);
-            guessing_game();
+            guessing_game::<IO>()?;
         }
         CommandEnum::FibonacciGetter => {
             IO::print("Type in your i to get ith Fibonacci number.");

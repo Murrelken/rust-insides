@@ -1,43 +1,35 @@
-use std::io;
 use rand::Rng;
 use std::cmp::Ordering;
+use crate::command_handler::input_output_handler::{InputReceiver, Printer};
 
-pub fn guessing_game() {
+pub fn guessing_game<IO>() -> Result<(), String> where
+    IO: Printer + InputReceiver<u32> {
     let secret_number = rand::thread_rng().gen_range(10..=100);
-    println!("Hint: { } + 7", secret_number - 7);
+    IO::print(&format!("Hint: { } + 7", secret_number - 7));
 
-    println!("Guess the number!");
+    IO::print("Guess the number!");
 
     let mut count: u32 = 0;
 
-    let mut guess = String::new();
-
     loop {
-        println!("Please input your guess.");
+        IO::print("Please input your guess.");
 
-        io::stdin()
-            .read_line(&mut guess)
-            .expect("Failed to read line");
+        let guess = IO::try_get_input()?;
 
-        println!("You guessed: {guess}");
-
-        let guess: u32 = match guess
-            .trim()
-            .parse() {
-            Ok(num) => num,
-            Err(_) => continue
-        };
+        IO::print(&format!("You guessed: {guess}"));
 
         count += 1;
 
         match guess.cmp(&secret_number) {
-            Ordering::Less => println!("Too small!"),
-            Ordering::Greater => println!("Too big!"),
+            Ordering::Less => IO::print("Too small!"),
+            Ordering::Greater => IO::print("Too big!"),
             Ordering::Equal => {
-                println!("You won!");
-                println!("It took you {count} attempts...");
+                IO::print("You won!");
+                IO::print(&format!("It took you {count} attempts..."));
                 break;
             }
         }
     }
+
+    Ok(())
 }
