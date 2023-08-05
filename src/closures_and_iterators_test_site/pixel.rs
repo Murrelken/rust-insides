@@ -2,9 +2,40 @@ use std::iter::Sum;
 
 #[derive(Debug)]
 pub struct Pixel {
-    r: i8,
-    g: i8,
-    b: i8,
+    r: u8,
+    g: u8,
+    b: u8,
+}
+
+impl Pixel {
+    pub fn new(r: u8, g: u8, b: u8) -> Pixel {
+        Pixel { r, g, b }
+    }
+}
+
+impl IntoIterator for Pixel {
+    type Item = u8;
+    type IntoIter = PixelIntoIterator;
+
+    fn into_iter(self) -> Self::IntoIter {
+        PixelIntoIterator {
+            item: self,
+            index: 0,
+        }
+    }
+}
+
+impl FromIterator<u8> for PixelIntoIterator {
+    fn from_iter<T: IntoIterator<Item=u8>>(iter: T) -> Self {
+        let mut into_iter = iter.into_iter();
+        let r: Option<u8> = into_iter.next();
+        let g: Option<u8> = into_iter.next();
+        let b: Option<u8> = into_iter.next();
+        PixelIntoIterator {
+            item: Pixel::new(r.unwrap_or_else(|| 0), g.unwrap_or_else(|| 0), b.unwrap_or_else(|| 0)),
+            index: 0,
+        }
+    }
 }
 
 pub struct PixelIntoIterator {
@@ -12,14 +43,21 @@ pub struct PixelIntoIterator {
     index: usize,
 }
 
-impl IntoIterator for Pixel {
-    type Item = i8;
-    type IntoIter = PixelIntoIterator;
+impl PixelIntoIterator {
+    fn next_mut(&mut self) -> Option<&mut u8> {
+        let index = self.index;
+        self.index += 1;
+        match index {
+            0 => Some(&mut self.item.r),
+            1 => Some(&mut self.item.g),
+            2 => Some(&mut self.item.b),
+            _ => return None,
+        }
+    }
 
-    fn into_iter(self) -> Self::IntoIter {
-        PixelIntoIterator {
-            item: self,
-            index: 0,
+    pub fn for_each_mut<F>(mut self, mut f: F) where Self: Sized, F: FnMut(&mut u8) {
+        while let Some(el) = self.next_mut() {
+            f(el)
         }
     }
 }
@@ -48,27 +86,8 @@ impl DoubleEndedIterator for PixelIntoIterator {
     }
 }
 
-impl PixelIntoIterator {
-    fn next_mut(&mut self) -> Option<&mut i8> {
-        let index = self.index;
-        self.index += 1;
-        match index {
-            0 => Some(&mut self.item.r),
-            1 => Some(&mut self.item.g),
-            2 => Some(&mut self.item.b),
-            _ => return None,
-        }
-    }
-
-    pub fn for_each_mut<F>(mut self, mut f: F) where Self: Sized, F: FnMut(&mut i8) {
-        while let Some(el) = self.next_mut() {
-            f(el)
-        }
-    }
-}
-
 impl Iterator for PixelIntoIterator {
-    type Item = i8;
+    type Item = u8;
 
     fn next(&mut self) -> Option<Self::Item> {
         let result = match self.index {
@@ -125,8 +144,14 @@ impl Iterator for PixelIntoIterator {
         if let Some(r) = f(self.item.r) { Some(r) } else if let Some(g) = f(self.item.g) { Some(g) } else if let Some(b) = f(self.item.b) { Some(b) } else { None }
     }
 
-    fn position<P>(&mut self, predicate: P) -> Option<usize> where Self: Sized, P: FnMut(Self::Item) -> bool {
-        todo!()
+    fn position<P>(&mut self, mut predicate: P) -> Option<usize> where Self: Sized, P: FnMut(Self::Item) -> bool {
+        while let Some(el) = self.next() {
+            if predicate(el) {
+                return Some(self.index);
+            }
+        }
+
+        None
     }
 
     fn max(self) -> Option<Self::Item> where Self: Sized, Self::Item: Ord {
@@ -142,7 +167,7 @@ impl Iterator for PixelIntoIterator {
     }
 
     fn eq<I>(self, other: I) -> bool where I: IntoIterator, Self::Item: PartialEq<I::Item>, Self: Sized {
-        for (mine, other) in self.item.into_iter().zip(other) {
+        for (mine, other) in self.zip(other) {
             if !mine.eq(&other) {
                 return false;
             }

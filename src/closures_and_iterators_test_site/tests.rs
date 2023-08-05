@@ -22,7 +22,85 @@ fn test_closure_on_a_value() {
 }
 
 #[test]
-fn test_custom_iterator() {
-    let collection = (0..100).collect::<Vec<i32>>();
-    let a = collection.iter().count();
+fn test_for_each_mut() {
+    // let int_collection = (0..10).collect::<Vec<i32>>();
+    // let pixel = Pixel::new(0,127,255);
+    //
+    // let pixel = dbg!(pixel);
+    //
+    // for i in pixel.into_iter().collect::<PixelIntoIterator>().zip(int_collection) {
+    //     dbg!(i);
+    // }
+    //
+    // panic!();
+}
+
+#[test]
+fn test_next() {
+
+}
+
+#[test]
+fn test_nth() {
+
+}
+
+#[test]
+fn test_for_each() {
+
+}
+
+#[test]
+fn test_collect() {
+
+}
+
+#[test]
+fn test_all() {
+
+}
+
+#[test]
+fn test_any() {
+
+}
+
+#[test]
+fn test_find() {
+
+}
+
+#[test]
+fn test_find_map() {
+
+}
+
+#[test]
+fn test_position() {
+
+}
+
+#[test]
+fn test_max() {
+
+}
+
+#[test]
+fn test_min() {
+
+}
+
+#[test]
+fn test_sum() {
+
+}
+
+#[test]
+fn test_eq() {
+
+}
+
+#[test]
+fn test_() {
+
 }
