@@ -10,12 +10,12 @@ impl ConsoleInputOutputHandler {
         let mut i = String::new();
         match io::stdin().read_line(&mut i) {
             Ok(_) => {}
-            Err(e) => return Err(e.to_string())
+            Err(_) => return Err(String::from("Couldn't read the line"))
         };
 
         match i.trim().parse() {
             Ok(x) => Ok(x),
-            Err(e) => Err(String::new())
+            Err(_) => Err(String::from("Couldn't parse the line"))
         }
     }
 }
@@ -28,12 +28,12 @@ impl Printer for ConsoleInputOutputHandler {
 
 impl InputReceiver<u32> for ConsoleInputOutputHandler {
     fn try_get_input() -> Result<u32, String> {
-        Self::try_get_input()?
+        Self::try_get_input()
     }
 }
 
 impl InputReceiver<f64> for ConsoleInputOutputHandler {
     fn try_get_input() -> Result<f64, String> {
-        Self::try_get_input()?
+        Self::try_get_input()
     }
 }

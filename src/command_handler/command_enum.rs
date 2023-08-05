@@ -1,5 +1,3 @@
-use std::convert::TryFrom;
-
 #[derive(Debug)]
 pub enum CommandEnum {
     GuessingGame,
