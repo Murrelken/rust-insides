@@ -2,7 +2,7 @@ use std::fmt::Debug;
 use super:: {one_struct::*, another_struct::*, struct_with_item_trait::*};
 
 #[test]
-pub fn test_abstract_call() {
+fn test_abstract_call() {
     let one_struct = OneStruct::new(5i32);
     let another_struct = AnotherStruct::new("25");
 
