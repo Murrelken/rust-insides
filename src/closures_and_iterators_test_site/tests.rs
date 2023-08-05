@@ -18,7 +18,7 @@ fn test_closure_on_a_value() {
     let is_even_closure = get_test_is_even_fn();
 
     assert!(is_even_closure(&0));
-    assert_ne!(is_even_closure(&1));
+    assert!(!is_even_closure(&1));
 }
 
 #[test]
