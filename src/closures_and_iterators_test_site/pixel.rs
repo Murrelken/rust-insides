@@ -1,6 +1,7 @@
+use std::fmt::Debug;
 use std::iter::Sum;
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 pub struct Pixel {
     r: u8,
     g: u8,
@@ -38,6 +39,7 @@ impl FromIterator<u8> for PixelIntoIterator {
     }
 }
 
+#[derive(Debug, Copy, Clone)]
 pub struct PixelIntoIterator {
     item: Pixel,
     index: usize,
@@ -55,10 +57,12 @@ impl PixelIntoIterator {
         }
     }
 
-    pub fn for_each_mut<F>(mut self, mut f: F) where Self: Sized, F: FnMut(&mut u8) {
+    pub fn for_each_mut<F>(mut self, mut f: F) -> Self where Self: Sized, F: FnMut(&mut u8) {
         while let Some(el) = self.next_mut() {
-            f(el)
+            f(el);
         }
+        self.index = 0;
+        self
     }
 }
 
@@ -124,10 +128,6 @@ impl Iterator for PixelIntoIterator {
         }
     }
 
-    fn collect<B: FromIterator<Self::Item>>(self) -> B where Self: Sized {
-        B::from_iter(self)
-    }
-
     fn all<F>(&mut self, mut f: F) -> bool where Self: Sized, F: FnMut(Self::Item) -> bool {
         f(self.item.r) && f(self.item.g) && f(self.item.b)
     }
@@ -137,17 +137,13 @@ impl Iterator for PixelIntoIterator {
     }
 
     fn find<P>(&mut self, mut predicate: P) -> Option<Self::Item> where Self: Sized, P: FnMut(&Self::Item) -> bool {
-        if predicate(&self.item.r) { Some(self.item.r) } else if predicate(&self.item.g) { Some(self.item.r) } else { Some(self.item.b) }
-    }
-
-    fn find_map<B, F>(&mut self, mut f: F) -> Option<B> where Self: Sized, F: FnMut(Self::Item) -> Option<B> {
-        if let Some(r) = f(self.item.r) { Some(r) } else if let Some(g) = f(self.item.g) { Some(g) } else if let Some(b) = f(self.item.b) { Some(b) } else { None }
+        if predicate(&self.item.r) { Some(self.item.r) } else if predicate(&self.item.g) { Some(self.item.r) } else if predicate(&self.item.b) { Some(self.item.b) } else { None }
     }
 
     fn position<P>(&mut self, mut predicate: P) -> Option<usize> where Self: Sized, P: FnMut(Self::Item) -> bool {
         while let Some(el) = self.next() {
             if predicate(el) {
-                return Some(self.index);
+                return Some(self.index - 1);
             }
         }
 
