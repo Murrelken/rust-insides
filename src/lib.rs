@@ -1,6 +1,7 @@
 pub mod command_handler;
 mod closures_and_iterators_test_site;
 mod abstraction_test_site;
+mod smart_pointers_test_site;
 
 use std::convert::TryInto;
 use crate::command_handler::command_runner::run;
