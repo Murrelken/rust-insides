@@ -2,5 +2,5 @@
 mod tests;
 #[cfg(test)]
 mod closures;
-#[cfg(test)]
-mod pixel;
+pub mod pixel;
+pub mod tests_presets;

@@ -3,6 +3,9 @@ mod closures_and_iterators_test_site;
 mod abstraction_test_site;
 mod smart_pointers_test_site;
 
+pub use closures_and_iterators_test_site::tests_presets::*;
+pub use closures_and_iterators_test_site::pixel::*;
+
 use std::convert::TryInto;
 use crate::command_handler::command_runner::run;
 use crate::command_handler::command_enum::CommandEnum;
