@@ -1,6 +1,6 @@
 use std::io;
 use std::str::FromStr;
-use rust_web_server::command_handler::input_output_handler::*;
+use rust_insides::command_handler::input_output_handler::*;
 
 pub struct ConsoleInputOutputHandler {}
 

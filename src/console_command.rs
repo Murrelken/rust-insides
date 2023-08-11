@@ -1,4 +1,4 @@
-use rust_web_server::command_handler::command_enum::CommandEnum;
+use rust_insides::command_handler::command_enum::CommandEnum;
 
 pub struct ConsoleCommand {
     pub value: i32,

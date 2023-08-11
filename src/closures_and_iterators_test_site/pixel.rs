@@ -63,7 +63,7 @@ impl PixelIntoIterator {
     /// ```
     ///    use std::ops::AddAssign;
     ///
-    ///    let pixel = rust_web_server::get_test_pixel();
+    ///    let pixel = rust_insides::get_test_pixel();
     ///    for color in pixel.into_iter().for_each_mut(|x| { x.add_assign(255 - *x) }) {
     ///        assert_eq!(color, 255);
     ///    }
@@ -108,7 +108,7 @@ impl Iterator for PixelIntoIterator {
     ///
     /// # Examples
     /// ```
-    ///    use rust_web_server::get_test_pixel;
+    ///    use rust_insides::get_test_pixel;
     ///
     ///    let pixel = get_test_pixel();
     ///    let mut iter = pixel.into_iter();
@@ -145,7 +145,7 @@ impl Iterator for PixelIntoIterator {
     ///
     /// # Examples
     /// ```
-    ///    use rust_web_server::*;
+    ///    use rust_insides::*;
     ///
     ///    let pixel = get_test_pixel();
     ///    let mut iter = pixel.into_iter();
@@ -169,7 +169,7 @@ impl Iterator for PixelIntoIterator {
     ///
     /// # Examples
     /// ```
-    ///    use rust_web_server::get_test_pixel;
+    ///    use rust_insides::get_test_pixel;
     ///
     ///    let pixel = get_test_pixel();
     ///    let mut prev = 2u8;
@@ -190,7 +190,7 @@ impl Iterator for PixelIntoIterator {
     ///
     /// # Examples
     /// ```
-    ///    use rust_web_server::Pixel;
+    ///    use rust_insides::Pixel;
     ///
     ///    let predicate = |el: u8| { el > 127 };
     ///    let pixel_all_true = Pixel::new(128, 192, 255);
@@ -212,7 +212,7 @@ impl Iterator for PixelIntoIterator {
     ///
     /// # Examples
     /// ```
-    ///    use rust_web_server::Pixel;
+    ///    use rust_insides::Pixel;
     ///
     ///    let predicate = |el: u8| { el > 127 };
     ///    let pixel_all_true = Pixel::new(128, 192, 255);
@@ -235,7 +235,7 @@ impl Iterator for PixelIntoIterator {
     ///
     /// # Examples
     /// ```
-    ///    use rust_web_server::*;
+    ///    use rust_insides::*;
     ///
     ///    let pixel = get_test_pixel();
     ///    let mut iter = pixel.into_iter();
@@ -253,7 +253,7 @@ impl Iterator for PixelIntoIterator {
     ///
     /// # Examples
     /// ```
-    ///    use rust_web_server::*;
+    ///    use rust_insides::*;
     ///
     ///    let pixel = get_test_pixel();
     ///    let mut iter = pixel.into_iter();
@@ -280,7 +280,7 @@ impl Iterator for PixelIntoIterator {
     ///
     /// # Examples
     /// ```
-    ///    use rust_web_server::*;
+    ///    use rust_insides::*;
     ///
     ///    let pixel = get_test_pixel();
     ///    let max = pixel.into_iter().max();
@@ -294,7 +294,7 @@ impl Iterator for PixelIntoIterator {
     ///
     /// # Examples
     /// ```
-    ///    use rust_web_server::*;
+    ///    use rust_insides::*;
     ///
     ///    let pixel = get_test_pixel();
     ///    let min = pixel.into_iter().min();
@@ -308,7 +308,7 @@ impl Iterator for PixelIntoIterator {
     ///
     /// # Examples
     /// ```
-    ///    use rust_web_server::*;
+    ///    use rust_insides::*;
     ///
     ///    let pixel = get_test_pixel();
     ///    let sum = pixel.into_iter().sum::<u8>();
@@ -322,7 +322,7 @@ impl Iterator for PixelIntoIterator {
     ///
     /// # Examples
     /// ```
-    ///    use rust_web_server::get_test_pixel;
+    ///    use rust_insides::get_test_pixel;
     ///
     ///    let pixel_one = get_test_pixel();
     ///    let pixel_two = get_test_pixel();
@@ -341,7 +341,7 @@ impl Iterator for PixelIntoIterator {
     ///
     /// # Examples
     /// ```
-    ///    use rust_web_server::get_test_pixel;
+    ///    use rust_insides::get_test_pixel;
     ///
     ///    let pixel_one = get_test_pixel();
     ///    let pixel_two = get_test_pixel();
