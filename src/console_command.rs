@@ -13,7 +13,7 @@ impl TryInto<CommandEnum> for ConsoleCommand {
             2 => Ok(CommandEnum::FibonacciGetter),
             3 => Ok(CommandEnum::CelsiusToFahrenheit),
             4 => Ok(CommandEnum::FahrenheitToCelsius),
-            _ => Err("Command not recognized...")
+            _ => Err("Command not recognized..."),
         }
     }
 }

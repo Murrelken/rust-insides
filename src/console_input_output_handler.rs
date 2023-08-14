@@ -1,21 +1,23 @@
+use rust_insides::command_handler::input_output_handler::*;
 use std::io;
 use std::str::FromStr;
-use rust_insides::command_handler::input_output_handler::*;
 
 pub struct ConsoleInputOutputHandler {}
 
 impl ConsoleInputOutputHandler {
-    fn try_get_input<T>() -> Result<T, String> where
-        T: FromStr {
+    fn try_get_input<T>() -> Result<T, String>
+    where
+        T: FromStr,
+    {
         let mut i = String::new();
         match io::stdin().read_line(&mut i) {
             Ok(_) => {}
-            Err(_) => return Err(String::from("Couldn't read the line"))
+            Err(_) => return Err(String::from("Couldn't read the line")),
         };
 
         match i.trim().parse() {
             Ok(x) => Ok(x),
-            Err(_) => Err(String::from("Couldn't parse the line"))
+            Err(_) => Err(String::from("Couldn't parse the line")),
         }
     }
 }

@@ -2,7 +2,7 @@ use super::struct_with_item_trait::*;
 
 #[derive(Debug, Copy, Clone)]
 pub struct OneStruct<T: Copy> {
-    item: T
+    item: T,
 }
 
 impl<T: Copy> OneStruct<T> {

@@ -13,9 +13,12 @@ impl PartialEq for Node {
         self.value == other.value && {
             let self_children = self.children.borrow();
             let other_children = other.children.borrow();
-            self_children.is_empty() && other_children.is_empty() ||
-                self_children.len() == other_children.len() &&
-                    self_children.iter().zip(other_children.iter()).all(|(f, s)| Self::eq(f, s))
+            self_children.is_empty() && other_children.is_empty()
+                || self_children.len() == other_children.len()
+                    && self_children
+                        .iter()
+                        .zip(other_children.iter())
+                        .all(|(f, s)| Self::eq(f, s))
         }
     }
 }

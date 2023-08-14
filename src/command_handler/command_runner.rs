@@ -1,11 +1,13 @@
-use crate::command_handler::input_output_handler::*;
-use super::guessing_game::*;
-use super::fibonacci_calculator::ith_fibonacci;
-use super::degrees_convertor::*;
 use super::command_enum::CommandEnum;
+use super::degrees_convertor::*;
+use super::fibonacci_calculator::ith_fibonacci;
+use super::guessing_game::*;
+use crate::command_handler::input_output_handler::*;
 
-pub fn run<IO>(command: CommandEnum) -> Result<(), String> where
-    IO: Printer + InputReceiver<u32> + InputReceiver<f64> {
+pub fn run<IO>(command: CommandEnum) -> Result<(), String>
+where
+    IO: Printer + InputReceiver<u32> + InputReceiver<f64>,
+{
     IO::print("Pick one of available commands.");
     for (i, str) in FUNCTIONS.iter().enumerate() {
         IO::print(&format!("{ }: {str}", i + 1));

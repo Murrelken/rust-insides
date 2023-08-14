@@ -3,5 +3,5 @@ pub enum CommandEnum {
     GuessingGame,
     FibonacciGetter,
     CelsiusToFahrenheit,
-    FahrenheitToCelsius
+    FahrenheitToCelsius,
 }

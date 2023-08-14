@@ -1,5 +1,9 @@
 pub fn ith_fibonacci(mut i: u32) -> u32 {
-    if i == 1 { return 0; } else if i == 2 { return 1; }
+    if i == 1 {
+        return 0;
+    } else if i == 2 {
+        return 1;
+    }
 
     let mut cur = 1;
     let mut prev = 1;

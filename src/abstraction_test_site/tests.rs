@@ -1,5 +1,5 @@
+use super::{another_struct::*, one_struct::*, struct_with_item_trait::*};
 use std::fmt::Debug;
-use super:: {one_struct::*, another_struct::*, struct_with_item_trait::*};
 
 #[test]
 fn test_abstract_call() {

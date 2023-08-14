@@ -4,7 +4,10 @@ use super::closures::get_test_is_even_fn;
 fn test_closure_with_iterator() {
     let is_even_closure = get_test_is_even_fn();
     let collection = (0..100).collect::<Vec<i32>>();
-    let boolean_is_even_collection = collection.iter().map(is_even_closure).collect::<Vec<bool>>();
+    let boolean_is_even_collection = collection
+        .iter()
+        .map(is_even_closure)
+        .collect::<Vec<bool>>();
 
     assert_eq!(boolean_is_even_collection.len(), collection.len());
 

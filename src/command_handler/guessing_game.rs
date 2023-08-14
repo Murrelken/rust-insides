@@ -1,9 +1,11 @@
+use crate::command_handler::input_output_handler::{InputReceiver, Printer};
 use rand::Rng;
 use std::cmp::Ordering;
-use crate::command_handler::input_output_handler::{InputReceiver, Printer};
 
-pub fn guessing_game<IO>() -> Result<(), String> where
-    IO: Printer + InputReceiver<u32> {
+pub fn guessing_game<IO>() -> Result<(), String>
+where
+    IO: Printer + InputReceiver<u32>,
+{
     let secret_number = rand::thread_rng().gen_range(10..=100);
     IO::print(&format!("Hint: { } + 7", secret_number - 7));
 
